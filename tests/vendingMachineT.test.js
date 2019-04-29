@@ -1,4 +1,4 @@
-const vendingMachineTest = require('./mainT.js')
+const vendingMachineTest = require('./vendingMachineT.js')
 
 test('to return log Amount Needed', () => {
     expect(vendingMachineTest.amountCheck(0)).toBeFalsy();
