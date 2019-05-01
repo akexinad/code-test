@@ -1,10 +1,5 @@
 const rl = require('readline-sync');
 
-// Fogus' example
-// function fail(thing) {
-//     throw new Error(thing)
-// }
-
 const vendingMachine = {
     a1: {
         name: 'chocolate',
@@ -33,6 +28,7 @@ function success(msg) {
     console.log(`SUCCESS: ${ msg }`);
 }
 
+// User input function
 function request(input) {
     const userInput = rl.question(input);
     return userInput;
@@ -42,6 +38,7 @@ function requestAmount(input) {
     return Number(request(input));
 }
 
+// JS is terrible at math sometimes. I need to fix the amount to check if the correct curreny has been inserted.
 function fixedAmountInCents(amount) {
     return (amount * 100).toFixed();
 }
