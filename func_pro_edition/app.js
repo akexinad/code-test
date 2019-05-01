@@ -65,8 +65,9 @@ function amountCheck() {
     else if ( fixedAmountInCents(amount) % 10 !== 0) {
         amount -= 0.05;
         warn(`Sorry, 5c coins not accepted. Current balance is $${ amount }0`);
+        selectionCheck(amount);
     } else {
-        return console.log(amount);
+        selectionCheck(amount);
     }
 }
 
@@ -83,9 +84,7 @@ function selectionCheck(amount) {
     } else if (selection.price < amount) {
         let change = fixedChange(amount, selection.price);
         success(`Please collect your $${ change } in change.`);
+    } else {
+        success(`Please collect your item.`)
     }
 }
-
-
-selectionCheck(1.9);
-// amountCheck();
