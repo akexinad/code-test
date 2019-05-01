@@ -36,12 +36,16 @@ function request(input) {
 
 // Return input as type Number for currency error handling.
 function requestAmount(input) {
-    return Number(request(input));
+    return Number(request(input).trim());
 }
 
 // ARITHMETIC FUNCTIONS TO CALCULATE FIXED AMOUNTS AND CHANGE.
 function fixedAmountInCents(amount) {
     return (amount * 100).toFixed();
+}
+
+function fixedAmount(amount) {
+    return amount.toFixed(1);
 }
 
 function fixedChange(amountProvided, commodityPrice) {
@@ -53,35 +57,17 @@ function vendingMachineSelection() {
     return vendingMachine[selection];
 }
 
-
-function amountCheck() {
-
-    let amount = requestAmount('Enter Amount: ');
-
-    if ( fixedAmountInCents(amount) % 5 !== 0 ) {
-        fail('Incorrent curreny!');
-        return amountCheck();
-    }
-    else if ( fixedAmountInCents(amount) % 10 !== 0) {
-        amount -= 0.05;
-        warn(`Sorry, 5c coins not accepted. Current balance is $${ amount }0`);
-        selectionCheck(amount);
-    } else {
-        selectionCheck(amount);
-    }
-}
-
 function selectionCheck(amount) {
 
     const selection = vendingMachineSelection();
 
-    if (selection === undefined) {
+    if ( selection === undefined ) {
         fail(`${ selection } is invalid.`)
         return selectionCheck(amount);
-    } else if (selection.price > amount) {
+    } else if ( selection.price > amount ) {
         fail('Insufficient funds');
-        return amountCheck();
-    } else if (selection.price < amount) {
+        return main();
+    } else if ( selection.price < amount ) {
         let change = fixedChange(amount, selection.price);
         success(`Please collect your ${ selection.name } and your $${ change } in change.`);
     } else {
@@ -89,4 +75,22 @@ function selectionCheck(amount) {
     }
 }
 
-amountCheck();
+function main() {
+
+    let amount = requestAmount('Enter Amount: ');
+
+    if ( fixedAmountInCents(amount) % 5 !== 0 ) {
+        fail('Incorrent curreny!');
+        return main();
+    }
+    else if ( fixedAmountInCents(amount) % 10 !== 0) {
+        amount -= 0.05;
+        returnedAmount = fixedAmount(amount);
+        warn(`Sorry, 5c coins not accepted. Current balance is $${ returnedAmount }0`);
+        selectionCheck(returnedAmount);
+    } else {
+        selectionCheck(amount);
+    }
+}
+
+main();
