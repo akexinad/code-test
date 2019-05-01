@@ -28,28 +28,39 @@ function success(msg) {
     console.log(`SUCCESS: ${ msg }`);
 }
 
-// User input function
+// USER INPUT FUNCTIONS TO SANITIZE INPUTS
 function request(input) {
     const userInput = rl.question(input);
     return userInput;
 }
 
+// Return input as type Number for currency error handling.
 function requestAmount(input) {
     return Number(request(input));
 }
 
-// JS is terrible at math sometimes. I need to fix the amount to check if the correct curreny has been inserted.
+// ARITHMETIC FUNCTIONS TO CALCULATE FIXED AMOUNTS AND CHANGE.
 function fixedAmountInCents(amount) {
     return (amount * 100).toFixed();
 }
 
+function fixedChange(amountProvided, commodityPrice) {
+    return (amountProvided - commodityPrice).toFixed(2);
+}
+
+function vendingMachineSelection() {
+    const selection = request('Enter coordinates: ').trim();
+    return vendingMachine[selection];
+}
+
 
 function amountCheck() {
+
     let amount = requestAmount('Enter Amount: ');
 
     if ( fixedAmountInCents(amount) % 5 !== 0 ) {
-        fail('Incorrent curreny!')
-        return amountCheck()
+        fail('Incorrent curreny!');
+        return amountCheck();
     }
     else if ( fixedAmountInCents(amount) % 10 !== 0) {
         amount -= 0.05;
@@ -59,4 +70,22 @@ function amountCheck() {
     }
 }
 
-amountCheck();
+function selectionCheck(amount) {
+
+    const selection = vendingMachineSelection();
+
+    if (selection === undefined) {
+        fail(`${ selection } is invalid.`)
+        return selectionCheck(amount);
+    } else if (selection.price > amount) {
+        fail('Insufficient funds');
+        return amountCheck();
+    } else if (selection.price < amount) {
+        let change = fixedChange(amount, selection.price);
+        success(`Please collect your $${ change } in change.`);
+    }
+}
+
+
+selectionCheck(1.9);
+// amountCheck();
