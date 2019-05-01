@@ -2,15 +2,15 @@ const rl = require('readline-sync');
 
 const vendingMachine = {
     a1: {
-        name: 'chocolate',
+        name: 'chocolicious',
         price: 2.00
     },
     a2: {
-        name: 'hazelnut',
+        name: 'purple hazelnut',
         price: 2.50,
     },
     a3: {
-        name: 'vanilla',
+        name: 'vanillarama',
         price: 3.10
     }
 }
@@ -83,8 +83,10 @@ function selectionCheck(amount) {
         return amountCheck();
     } else if (selection.price < amount) {
         let change = fixedChange(amount, selection.price);
-        success(`Please collect your $${ change } in change.`);
+        success(`Please collect your ${ selection.name } and your $${ change } in change.`);
     } else {
         success(`Please collect your item.`)
     }
 }
+
+amountCheck();
