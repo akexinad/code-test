@@ -48,6 +48,10 @@ function fixedAmount(amount) {
     return amount.toFixed(1);
 }
 
+function returnFiveCents(amount) {
+    return Number((amount - 0.05).toFixed(1));
+}
+
 function fixedChange(amountProvided, commodityPrice) {
     return (amountProvided - commodityPrice).toFixed(2);
 }
@@ -69,9 +73,9 @@ function selectionCheck(amount) {
         return main();
     } else if ( selection.price < amount ) {
         let change = fixedChange(amount, selection.price);
-        success(`Please collect your ${ selection.name } and your $${ change } in change.`);
+        return success(`Please collect your ${ selection.name } and your $${ change } in change.`);
     } else {
-        success(`Please collect your item.`)
+        return success(`Please collect your ${ selection.name }`)
     }
 }
 
@@ -84,10 +88,9 @@ function main() {
         return main();
     }
     else if ( fixedAmountInCents(amount) % 10 !== 0) {
-        amount -= 0.05;
-        returnedAmount = fixedAmount(amount);
-        warn(`Sorry, 5c coins not accepted. Current balance is $${ returnedAmount }0`);
-        selectionCheck(returnedAmount);
+        amount = returnFiveCents(amount);
+        warn(`Sorry, 5c coins not accepted. Current balance is $${ amount }0`);
+        selectionCheck(amount);
     } else {
         selectionCheck(amount);
     }
