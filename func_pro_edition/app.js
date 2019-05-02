@@ -70,7 +70,7 @@ function fixedChange(amountProvided, commodityPrice) {
 }
 
 function vendingMachineSelection() {
-    const selection = request('Enter selection coordinates: ').trim();
+    const selection = request('Enter selection coordinates: ').toLowerCase().trim();
     return vendingMachine[selection];
 }
 
