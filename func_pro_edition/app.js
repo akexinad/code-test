@@ -82,7 +82,7 @@ function selectionCheck(amount) {
     const selection = vendingMachineSelection();
 
     if ( selection === undefined ) {
-        fail(`${ selection } is invalid.`)
+        fail(`Selection is invalid.`)
         return selectionCheck(amount);
     } else if ( selection.price > amount ) {
         fail(`Sorry you insufficient funds to buy ${ selection.name }`);
@@ -96,11 +96,15 @@ function selectionCheck(amount) {
 }
 
 // Check if amount inserted is actually a number and ensure no 5c denominations are accepted.
-function main() {
+(function main() {
 
     let amount = requestAmount('Enter Amount: ');
+    console.log(amount);
 
-    if ( fixedAmountInCents(amount) % 5 !== 0 ) {
+    if (amount === 0) {
+        fail('Please enter amount!');
+        return main();
+    } else if ( fixedAmountInCents(amount) % 5 !== 0 ) {
         fail('Incorrent currency!');
         return main();
     }
@@ -111,6 +115,6 @@ function main() {
     } else {
         selectionCheck(amount);
     }
-}
+})()
 
-main();
+// main();
