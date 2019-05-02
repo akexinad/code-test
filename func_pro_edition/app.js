@@ -58,7 +58,7 @@ function fixedAmountInCents(amount) {
 }
 
 function fixedAmount(amount) {
-    return amount.toFixed(1);
+    return amount.toFixed(2);
 }
 
 function returnFiveCents(amount) {
@@ -85,7 +85,7 @@ function selectionCheck(amount) {
         fail(`Selection is invalid.`)
         return selectionCheck(amount);
     } else if ( selection.price > amount ) {
-        fail(`Sorry you insufficient funds to buy ${ selection.name }`);
+        fail(`Sorry you have insufficient funds to buy ${ selection.name }`);
         return main();
     } else if ( selection.price < amount ) {
         let change = fixedChange(amount, selection.price);
@@ -96,7 +96,7 @@ function selectionCheck(amount) {
 }
 
 // Check if amount inserted is actually a number and ensure no 5c denominations are accepted.
-(function main() {
+function main() {
 
     let amount = requestAmount('Enter Amount: ');
 
@@ -109,10 +109,12 @@ function selectionCheck(amount) {
     }
     else if ( fixedAmountInCents(amount) % 10 !== 0) {
         amount = returnFiveCents(amount);
-        warn(`Sorry, 5c coins not accepted. Current balance is $${ amount }0`);
+        warn(`Sorry, 5c coins not accepted. Current balance is $${ amount.toFixed(2) }`);
         selectionCheck(amount);
     } else {
-        success(`You entered $${ (amount) }.`)
+        success(`You entered $${ amount.toFixed(2) }.`)
         selectionCheck(amount);
     }
-})()
+}
+
+main();
