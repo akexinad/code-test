@@ -69,7 +69,7 @@ function selectionCheck(amount) {
         fail(`${ selection } is invalid.`)
         return selectionCheck(amount);
     } else if ( selection.price > amount ) {
-        fail('Insufficient funds');
+        fail(`Sorry you insufficient funds to buy ${ selection.name }`);
         return main();
     } else if ( selection.price < amount ) {
         let change = fixedChange(amount, selection.price);
