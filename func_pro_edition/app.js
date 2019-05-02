@@ -99,7 +99,6 @@ function selectionCheck(amount) {
 (function main() {
 
     let amount = requestAmount('Enter Amount: ');
-    console.log(amount);
 
     if (amount === 0) {
         fail('Please enter amount!');
