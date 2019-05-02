@@ -1,5 +1,12 @@
 const rl = require('readline-sync');
 
+console.log('-----------------------');
+console.log('-----------------------');
+console.log('VENDING MACHINE');
+console.log('-----------------------');
+console.log('-----------------------\n\n');
+
+
 const vendingMachine = {
     a1: {
         name: 'chocolicious',
@@ -17,15 +24,21 @@ const vendingMachine = {
 
 // MESSAGE FUNCTIONS
 function fail(msg) {
+    console.log('\n--------------------------------');
     console.log(`ERROR: ${ msg }`);
+    console.log('--------------------------------\n');
 }
 
 function warn(msg) {
+    console.log('\n--------------------------------');
     console.log(`WARNING: ${ msg }`);
+    console.log('--------------------------------\n');
 }
 
 function success(msg) {
+    console.log('\n--------------------------------');
     console.log(`SUCCESS: ${ msg }`);
+    console.log('--------------------------------\n');
 }
 
 // USER INPUT FUNCTIONS TO SANITIZE INPUTS
@@ -61,6 +74,9 @@ function vendingMachineSelection() {
     return vendingMachine[selection];
 }
 
+
+// Check if the input by the user is defined and if the amount is sufficient and/or the user needs change.
+
 function selectionCheck(amount) {
 
     const selection = vendingMachineSelection();
@@ -79,12 +95,13 @@ function selectionCheck(amount) {
     }
 }
 
+// Check if amount inserted is actually a number and ensure no 5c denominations are accepted.
 function main() {
 
     let amount = requestAmount('Enter Amount: ');
 
     if ( fixedAmountInCents(amount) % 5 !== 0 ) {
-        fail('Incorrent curreny!');
+        fail('Incorrent currency!');
         return main();
     }
     else if ( fixedAmountInCents(amount) % 10 !== 0) {
