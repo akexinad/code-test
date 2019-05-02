@@ -104,7 +104,7 @@ function selectionCheck(amount) {
         fail('Please enter amount!');
         return main();
     } else if ( fixedAmountInCents(amount) % 5 !== 0 ) {
-        fail('Incorrent currency!');
+        fail('Incorrect currency!');
         return main();
     }
     else if ( fixedAmountInCents(amount) % 10 !== 0) {
@@ -112,7 +112,7 @@ function selectionCheck(amount) {
         warn(`Sorry, 5c coins not accepted. Current balance is $${ amount }0`);
         selectionCheck(amount);
     } else {
-        success(`You entered $${ (amount) }`)
+        success(`You entered $${ (amount) }.`)
         selectionCheck(amount);
     }
 })()
