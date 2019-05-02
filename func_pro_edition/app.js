@@ -9,16 +9,16 @@ console.log('-----------------------\n\n');
 
 const vendingMachine = {
     a1: {
-        name: 'chocolicious',
-        price: 2.00
+        name: 'Caramel',
+        price: 2.50
     },
     a2: {
-        name: 'purple hazelnut',
-        price: 2.50,
+        name: 'Hazelnut',
+        price: 3.10
     },
     a3: {
-        name: 'vanillarama',
-        price: 3.10
+        name: 'Organic Raw',
+        price: 2.00
     }
 }
 
@@ -70,7 +70,7 @@ function fixedChange(amountProvided, commodityPrice) {
 }
 
 function vendingMachineSelection() {
-    const selection = request('Enter coordinates: ').trim();
+    const selection = request('Enter selection coordinates: ').trim();
     return vendingMachine[selection];
 }
 
@@ -112,6 +112,7 @@ function selectionCheck(amount) {
         warn(`Sorry, 5c coins not accepted. Current balance is $${ amount }0`);
         selectionCheck(amount);
     } else {
+        success(`You entered $${ (amount) }`)
         selectionCheck(amount);
     }
 })()
