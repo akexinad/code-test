@@ -116,5 +116,3 @@ function selectionCheck(amount) {
         selectionCheck(amount);
     }
 })()
-
-// main();
